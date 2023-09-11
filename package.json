@@ -1,0 +1,23 @@
+{
+  "name": "@kolabuk/threads",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.js",
+  "scripts": {
+    "test": "tsc && node ./dist/test.js"
+  },
+  "keywords": [
+    "async",
+    "threads"
+  ],
+  "author": "KolAbuk",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KolAbuk/threads.git"
+  },
+  "devDependencies": {
+    "@types/node": "^20.6.0",
+    "typescript": "^5.2.2"
+  }
+}
