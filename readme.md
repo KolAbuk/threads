@@ -2,6 +2,8 @@
 
 Node.js threads
 
+⚠️⚠️⚠️ Warning! Possible memory leak ⚠️⚠️⚠️
+
 ## Installation
 
 ```bash

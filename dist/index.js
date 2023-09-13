@@ -42,22 +42,31 @@ class Threads {
                     ]);
                     this.startedCounter++;
                 }
+                let closed = 0;
                 for (let i = 0; i < numOfStarts; i++) {
                     try {
                         const worker = yield Promise.race(this.threads);
                         if (!worker) {
-                            continue;
+                            throw new Error("Worker is null");
                         }
                         worker.success ? this.trueCounter++ : this.falseCounter++;
                         this.logFunc(worker);
-                        this.threads[worker.workerID] = Promise.race([
-                            this.threadFunc({
-                                workerID: worker.workerID,
-                                startedCounter: this.startedCounter,
-                            }, ...data),
-                            timeout(worker.workerID),
-                        ]);
-                        this.startedCounter++;
+                        if (numOfStarts > this.startedCounter) {
+                            this.threads[worker.workerID] = Promise.race([
+                                this.threadFunc({
+                                    workerID: worker.workerID,
+                                    startedCounter: this.startedCounter,
+                                }, ...data),
+                                timeout(worker.workerID),
+                            ]);
+                            this.startedCounter++;
+                        }
+                        else {
+                            this.threads[worker.workerID] = timeout(worker.workerID);
+                            if (++closed == this.threadsCount) {
+                                this.threads.map((el) => null);
+                            }
+                        }
                     }
                     catch (e) {
                         throw e;
