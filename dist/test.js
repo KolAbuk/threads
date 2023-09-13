@@ -12,9 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const _1 = require(".");
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const f = ({ workerID, startedCounter }, someMass) => __awaiter(void 0, void 0, void 0, function* () {
+        const func = ({ workerID, startedCounter }, someMass) => __awaiter(void 0, void 0, void 0, function* () {
             try {
-                yield new Promise((res) => setTimeout(res, Math.floor(Math.random() * 15) * 1000));
+                yield new Promise((res) => setTimeout(res, Math.floor(Math.random() * 5) * 1000));
                 return {
                     workerID,
                     success: Math.round(Math.random()) == 1,
@@ -25,8 +25,9 @@ const _1 = require(".");
                 throw e;
             }
         });
-        const threads = new _1.Threads(f, (a) => console.log(a), 2, 10 * 1000);
-        threads.run([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+        const threads = new _1.Threads(func, (args) => console.log(args), 3, 10 * 1000);
+        const someMass = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        yield threads.run(someMass.length + 5, someMass);
         const stat = () => {
             try {
                 console.log(threads.getTrueCounter(), "/", threads.getFalseCounter(), "//", threads.getAllCounter());
@@ -35,7 +36,7 @@ const _1 = require(".");
                 throw e;
             }
         };
-        setInterval(stat, 10 * 1000);
+        // setInterval(stat, 10 * 1000);
     }
     catch (e) {
         console.error(e.message);

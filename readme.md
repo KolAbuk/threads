@@ -38,7 +38,8 @@ const threads = new Threads(
   10 * 1000 //timeout time in ms
 );
 threads.run(
-  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] //you can put there any data you need in function with logic
+  15, //times to run threads
+  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] //any data you need
 );
 const stat = () => {
   //simple example of success/error statistic

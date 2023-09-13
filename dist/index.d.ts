@@ -1,13 +1,13 @@
-export declare type threadFuncRes = {
+export type threadFuncRes = {
     workerID: number;
     success: boolean;
     logText: string;
 };
-export declare type threadFunc = ({ workerID, startedCounter }: {
+export type threadFunc = ({ workerID, startedCounter }: {
     workerID: number;
     startedCounter: number;
 }, ...data: any) => Promise<threadFuncRes>;
-export declare type logFunc = ({ workerID, success, logText }: threadFuncRes) => void;
+export type logFunc = ({ workerID, success, logText }: threadFuncRes) => void;
 export declare class Threads {
     private threadFunc;
     private logFunc;
@@ -21,5 +21,5 @@ export declare class Threads {
     getTrueCounter: () => number;
     getFalseCounter: () => number;
     getAllCounter: () => number;
-    run: (...data: any) => Promise<void>;
+    run: (numOfStarts: number, ...data: any) => Promise<void>;
 }

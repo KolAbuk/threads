@@ -43,8 +43,11 @@ export class Threads {
 
   getAllCounter = () => this.trueCounter + this.falseCounter;
 
-  run = async (...data: any) => {
+  run = async (numOfStarts: number, ...data: any) => {
     try {
+      if (numOfStarts < 1) {
+        throw new Error("Times  must be >=1");
+      }
       const timeout = async (workerID: number): Promise<threadFuncRes> => {
         await new Promise((res) => setTimeout(res, this.timeout));
         return {
@@ -66,7 +69,7 @@ export class Threads {
         ]);
         this.startedCounter++;
       }
-      while (1) {
+      for (let i = 0; i < numOfStarts; i++) {
         try {
           const worker = await Promise.race(this.threads);
           worker.success ? this.trueCounter++ : this.falseCounter++;

@@ -22,7 +22,7 @@ import { Threads, threadFunc } from ".";
       2,
       10 * 1000
     );
-    threads.run([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    threads.run(15, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
     const stat = () => {
       try {
         console.log(

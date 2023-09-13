@@ -19,8 +19,11 @@ class Threads {
         this.getTrueCounter = () => this.trueCounter;
         this.getFalseCounter = () => this.falseCounter;
         this.getAllCounter = () => this.trueCounter + this.falseCounter;
-        this.run = (...data) => __awaiter(this, void 0, void 0, function* () {
+        this.run = (numOfStarts, ...data) => __awaiter(this, void 0, void 0, function* () {
             try {
+                if (numOfStarts < 1) {
+                    throw new Error("Times  must be >=1");
+                }
                 const timeout = (workerID) => __awaiter(this, void 0, void 0, function* () {
                     yield new Promise((res) => setTimeout(res, this.timeout));
                     return {
@@ -39,9 +42,12 @@ class Threads {
                     ]);
                     this.startedCounter++;
                 }
-                while (1) {
+                for (let i = 0; i < numOfStarts; i++) {
                     try {
                         const worker = yield Promise.race(this.threads);
+                        if (!worker) {
+                            continue;
+                        }
                         worker.success ? this.trueCounter++ : this.falseCounter++;
                         this.logFunc(worker);
                         this.threads[worker.workerID] = Promise.race([
