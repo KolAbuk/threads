@@ -1,7 +1,7 @@
 {
   "name": "@kolabuk/threads",
   "version": "1.0.0",
-  "description": "",
+  "description": "Node.js threads",
   "main": "./dist/index.js",
   "scripts": {
     "test": "tsc && node ./dist/test.js"
